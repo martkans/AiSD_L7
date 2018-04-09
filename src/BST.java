@@ -1,14 +1,9 @@
 public class BST {
     private Node root;
-    private int nodeNumber;
-    private int leafNumber;
-    private int height;
-    private int innerNodeNumber;
     private String[] tree;
 
     public BST(){
         root = null;
-        nodeNumber = 0;
     }
 
     public void insert(int number){
@@ -75,21 +70,21 @@ public class BST {
     }
 
     public void drawTree(){
-        heightTree();
+        int height = heightTree(root,0);
         if (height == 0 && root != null)
             System.out.println(root.getValue());
         else {
             tree = new String[heightTree()+1];
             for (int i = 0; i  < tree.length; i++)
                 tree[i] = "";
-            drawTree(root, 0);
+            drawTree(root, 0, height);
             for (String s:tree) {
                 System.out.println(s);
             }
         }
     }
 
-    private void drawTree(Node root, int level) {
+    private void drawTree(Node root, int level, int height) {
         if(tree[level].equals(""))
             for (int i = 0; i < Math.pow(2,(height - level));i++)
                 tree[level] += "\t";
@@ -102,78 +97,71 @@ public class BST {
 
         if (level < height){
             if (root == null){
-                drawTree(null, level+1);
-                drawTree(null, level+1);
+                drawTree(null, level+1, height);
+                drawTree(null, level+1, height);
             } else {
-                drawTree(root.getLeftChild(), level+1);
-                drawTree(root.getRightChild(), level+1);
+                drawTree(root.getLeftChild(), level+1, height);
+                drawTree(root.getRightChild(), level+1, height);
             }
         }
     }
 
     public int heightTree(){
-        height = 0;
-        heightTree(root);
-        return height;
+        return heightTree(root,0);
     }
 
-    private void heightTree(Node root){
+    private int heightTree(Node root, int height){
         if (root != null){
             if (root.getLevel() > height)
                 height = root.getLevel();
-            heightTree(root.getLeftChild());
-            heightTree(root.getRightChild());
+            height = heightTree(root.getLeftChild(), height);
+            height = heightTree(root.getRightChild(), height);
         }
+        return height;
     }
 
     public int leafNumber(){
-        leafNumber = 0;
-        if (root != null)
-            leafNumber(root);
-        return leafNumber;
+        return leafNumber(root,0);
     }
 
-    private void leafNumber(Node root){
+    private int leafNumber(Node root, int leaf){
         if (root != null){
             if (root.getLeftChild() == null && root.getRightChild() == null) {
-                leafNumber++;
+                leaf++;
             } else {
-                leafNumber(root.getLeftChild());
-                leafNumber(root.getRightChild());
+                leaf = leafNumber(root.getLeftChild(), leaf);
+                leaf = leafNumber(root.getRightChild(), leaf);
             }
         }
+        return leaf;
     }
 
     public int nodeNumber(){
-        nodeNumber = 0;
-        if (root != null)
-            nodeNumber(root);
+        return nodeNumber(root,0);
+    }
+
+    private int nodeNumber(Node root, int nodeNumber){
+        if (root != null){
+            nodeNumber++;
+            nodeNumber = nodeNumber(root.getLeftChild(), nodeNumber);
+            nodeNumber = nodeNumber(root.getRightChild(), nodeNumber);
+        }
         return nodeNumber;
     }
 
-    private void nodeNumber(Node root){
-        if (root != null){
-            nodeNumber++;
-            nodeNumber(root.getLeftChild());
-            nodeNumber(root.getRightChild());
-        }
-    }
-
     public int innerNodeNumber(){
-        innerNodeNumber = 0;
-        if (this.root != null)
-            innerNodeNumber(root);
-        return innerNodeNumber;
+        return innerNodeNumber(root, 0);
     }
 
-    private void innerNodeNumber(Node root){
+    private int innerNodeNumber(Node root, int innerNodeNumber){
         if (root != null){
             if (root.getLeftChild() != null || root.getRightChild() != null) {
-                innerNodeNumber(root.getLeftChild());
-                innerNodeNumber(root.getRightChild());
                 innerNodeNumber++;
+                innerNodeNumber = innerNodeNumber(root.getLeftChild(), innerNodeNumber);
+                innerNodeNumber = innerNodeNumber(root.getRightChild(), innerNodeNumber);
             }
         }
+        return innerNodeNumber;
     }
 
     public int maxElement(){
