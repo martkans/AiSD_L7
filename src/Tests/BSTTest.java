@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BSTTest {
-    BST bst;
-    BST emptyBst;
+    Tree bst;
+    Tree emptyBst;
 
     @BeforeEach
     void prepare(){
@@ -27,8 +27,6 @@ class BSTTest {
         emptyBst.insert(5);
         emptyBst.insert(100);
         emptyBst.insert(10);
-
-        emptyBst.drawTree();
 
         assertEquals(20, emptyBst.search(20).getValue());
         assertEquals(10, emptyBst.search(10).getValue());
