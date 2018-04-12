@@ -1,14 +1,12 @@
 public class Main {
     public static void main(String[] args) {
-        Tree redBlackTree = new RedBlackTree();
-        redBlackTree.insert(7);
-        redBlackTree.insert(3);
-        redBlackTree.insert(18);
-        redBlackTree.insert(10);
-        redBlackTree.insert(22);
-        redBlackTree.insert(8);
-        redBlackTree.insert(11);
-        redBlackTree.insert(26);
+        Tree redBlackTree = new BST();
+        redBlackTree.insert(30);
+//        redBlackTree.insert(20);
+//        redBlackTree.insert(40);
+//        redBlackTree.insert(35);
+//        redBlackTree.insert(50);
+        redBlackTree.delete(30);
         redBlackTree.drawTree();
     }
 }

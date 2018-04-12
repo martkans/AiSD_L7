@@ -141,7 +141,7 @@ abstract public class Tree {
         return minElement(root);
     }
 
-    private int minElement(AbstractNode root){
+    protected int minElement(AbstractNode root){
         if (this.root == null) throw new NullPointerException();
         if (root.getLeftChild() != null){
             return minElement(root.getLeftChild());

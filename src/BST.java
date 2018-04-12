@@ -43,13 +43,21 @@ public class BST extends Tree{
         else if(root.getValue() < number)
             root.setRightChild(delete(root.getRightChild(), number));
         else {
+            if (root == this.root && root.getRightChild() == null && root.getLeftChild() == null) {
+                this.root = null;
+                return null;
+            }
+
             if(root.getLeftChild() == null)
                 return root.getRightChild();
             else if(root.getRightChild() == null)
                 return root.getLeftChild();
 
             root.setValue(maxElement(root.getLeftChild()));
-            delete(root.getLeftChild(),root.getValue());
+            if (root.getLeftChild().getValue() == root.getValue()){
+                root.setLeftChild(root.getLeftChild().getRightChild());
+            } else
+                delete(root.getLeftChild(), root.getValue());
         }
         return root;
     }

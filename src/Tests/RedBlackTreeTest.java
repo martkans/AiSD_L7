@@ -60,9 +60,10 @@ class RedBlackTreeTest {
         assertEquals(0, emptyRedBlackTree.heightTree());
         redBlackTree.insert(13);
         assertEquals(3, redBlackTree.heightTree());
-/*        bst.delete(15);
-        bst.delete(13);
-        assertEquals(3,bst.heightTree());*/
+//        redBlackTree.delete(15);
+//        assertEquals(3,redBlackTree.heightTree());
+
+        redBlackTree.drawTree();
     }
 
     @Test
@@ -88,8 +89,8 @@ class RedBlackTreeTest {
     void innerNodeNumber() {
         assertEquals(4, redBlackTree.innerNodeNumber());
         assertEquals(0, emptyRedBlackTree.innerNodeNumber());
-/*        redBlackTree.delete(15);
-        assertEquals(4, redBlackTree.innerNodeNumber());*/
+        redBlackTree.delete(15);
+        assertEquals(4, redBlackTree.innerNodeNumber());
     }
 
     @Test
