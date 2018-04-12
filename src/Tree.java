@@ -3,6 +3,8 @@ import Node.*;
 abstract public class Tree {
     protected AbstractNode root;
     protected String[] tree;
+    private final String ANSI_RESET = "\u001B[0m";
+    private final String ANSI_RED = "\u001B[31m";
 
     public Tree(){
         root = null;
@@ -29,8 +31,6 @@ abstract public class Tree {
     public void drawTree(){
         int height = heightTree(root,0);
         if (height == 0 && root != null) {
-            if (root.getClass() == NodeColor.class)
-                System.out.print("[" + root.getColor() + "]");
             System.out.print(root.getValue() + "\n");
         } else {
             tree = new String[height+1];
@@ -51,9 +51,14 @@ abstract public class Tree {
             for (int i = 0; i < Math.pow(2,(height - level + 1));i++)
                 tree[level] += "\t";
         if (root != null) {
-            if (root.getClass() == NodeColor.class)
-                tree[level] += "[" + root.getColor() + "]";
-            tree[level] += String.valueOf(root.getValue());
+            if (root.getClass() == NodeColor.class){
+                if (root.getColor() == 'R')
+                    tree[level] += ANSI_RED + String.valueOf(root.getValue()) + ANSI_RESET;
+                else
+                    tree[level] += String.valueOf(root.getValue());
+            } else {
+                tree[level] += String.valueOf(root.getValue());
+            }
         }
         if (level < height){
             if (root == null){

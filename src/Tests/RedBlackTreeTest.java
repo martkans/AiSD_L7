@@ -60,10 +60,8 @@ class RedBlackTreeTest {
         assertEquals(0, emptyRedBlackTree.heightTree());
         redBlackTree.insert(13);
         assertEquals(3, redBlackTree.heightTree());
-//        redBlackTree.delete(15);
-//        assertEquals(3,redBlackTree.heightTree());
-
-        redBlackTree.drawTree();
+        redBlackTree.delete(15);
+        assertEquals(3,redBlackTree.heightTree());
     }
 
     @Test
@@ -72,17 +70,17 @@ class RedBlackTreeTest {
         assertEquals(0, emptyRedBlackTree.leafNumber());
         redBlackTree.insert(2);
         assertEquals(4, redBlackTree.leafNumber());
-//        bst.delete(9);
-//        assertEquals(2, bst.leafNumber());
+        redBlackTree.delete(9);
+        assertEquals(3, redBlackTree.leafNumber());
     }
 
     @Test
     void nodeNumber() {
         assertEquals(7, redBlackTree.nodeNumber());
         assertEquals(0, emptyRedBlackTree.nodeNumber());
-/*        bst.delete(10);
-        bst.delete(909);
-        assertEquals(6, bst.nodeNumber());*/
+        redBlackTree.delete(10);
+        redBlackTree.delete(9090);
+        assertEquals(6, redBlackTree.nodeNumber());
     }
 
     @Test
@@ -90,7 +88,7 @@ class RedBlackTreeTest {
         assertEquals(4, redBlackTree.innerNodeNumber());
         assertEquals(0, emptyRedBlackTree.innerNodeNumber());
         redBlackTree.delete(15);
-        assertEquals(4, redBlackTree.innerNodeNumber());
+        assertEquals(3, redBlackTree.innerNodeNumber());
     }
 
     @Test
