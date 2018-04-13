@@ -62,6 +62,8 @@ public class RedBlackTree extends Tree {
         }
         return null;
     }
+
+    @SuppressWarnings("Duplicates")
     private AbstractNode delete(AbstractNode root, int number){
         if (root == null)
             return null;
@@ -70,9 +72,17 @@ public class RedBlackTree extends Tree {
         else if(root.getValue() < number)
             root.setRightChild(delete(root.getRightChild(), number));
         else {
-            if (root == this.root && root.getRightChild() == null && root.getLeftChild() == null) {
-                this.root = null;
-                return null;
+            if (root == this.root){
+                if (root.getLeftChild() == null && root.getRightChild() == null) {
+                    this.root = null;
+                    return null;
+                } else if (root.getLeftChild() == null && root.getRightChild() != null){
+                    root.setValue(minElement(root.getRightChild()));
+                    root.setRightChild(delete(root.getRightChild(),root.getValue()));
+                } else if (root.getLeftChild() != null && root.getRightChild() == null){
+                    root.setValue(maxElement(root.getLeftChild()));
+                    root.setLeftChild(delete(root.getLeftChild(),root.getValue()));
+                }
             }
 
             if(root.getLeftChild() == null && root.getRightChild() == null){
@@ -85,6 +95,7 @@ public class RedBlackTree extends Tree {
 
             if(root.getLeftChild() == null) {
                 if (root.getRightChild() != null) {
+                    root.getRightChild().setLevel(root.getLevel());
                     if (root.getRightChild().getColor() == 'R' || root.getColor() == 'R')
                         root.getRightChild().setColor('B');
                     else
@@ -95,6 +106,7 @@ public class RedBlackTree extends Tree {
             }
             else if(root.getRightChild() == null){
                 if (root.getLeftChild() != null) {
+                    root.getLeftChild().setLevel(root.getLevel());
                     if (root.getLeftChild().getColor() == 'R' || root.getColor() == 'R')
                         root.getLeftChild().setColor('B');
                     else
@@ -147,7 +159,10 @@ public class RedBlackTree extends Tree {
         }
 
         if (root == sentintel){
-            parent.setLeftChild(null);
+            if (parent.getLeftChild() == sentintel)
+                parent.setLeftChild(null);
+            else
+                parent.setRightChild(null);
             sentintel = null;
         }
 
