@@ -1,32 +1,24 @@
 public class Main {
     public static void main(String[] args) {
-        Tree redBlackTree = new RedBlackTree();
-        redBlackTree.insert(5);
-        redBlackTree.insert(100);
-        redBlackTree.delete(5);
-//        redBlackTree.insert(42);
-//        redBlackTree.insert(49);
-//        redBlackTree.insert(35);
-//        redBlackTree.insert(36);
-//        redBlackTree.insert(62);
-//        redBlackTree.insert(3);
-//        redBlackTree.insert(38);
-//        redBlackTree.insert(43);
-//        redBlackTree.insert(10);
-//        redBlackTree.insert(77);
-//        redBlackTree.insert(1);
-//        redBlackTree.insert(41);
-//        redBlackTree.insert(50);
-//        redBlackTree.insert(11);
-//        redBlackTree.insert(25);
-//        redBlackTree.insert(59);
-//        redBlackTree.insert(98);
-//        redBlackTree.insert(44);
-//
-//        redBlackTree.delete(62);
-//        redBlackTree.delete(42);
-//        redBlackTree.delete(44);
-//        redBlackTree.delete(59);
-        redBlackTree.drawTree();
+        Tree example = new RedBlackTree();
+        example.insert(15);
+        example.insert(16);
+        example.insert(17);
+        example.insert(18);
+        example.insert(19);
+        example.insert(20);
+        example.insert(21);
+        example.insert(-2);
+        example.insert(0);
+        example.insert(22);
+        example.insert(23);
+        example.insert(24);
+        example.insert(25);
+        example.insert(26);
+        example.insert(27);
+        example.insert(-30);
+        example.insert(2);
+        example.insert(-23);
+        example.drawTree();
     }
 }

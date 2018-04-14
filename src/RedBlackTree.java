@@ -3,7 +3,7 @@ import Node.NodeColor;
 
 public class RedBlackTree extends Tree {
 
-    AbstractNode sentintel = null;
+    AbstractNode sentinel = null;
     public RedBlackTree(){
         super();
     }
@@ -40,8 +40,8 @@ public class RedBlackTree extends Tree {
     @Override
     public void delete(int number){
         delete(this.root, number);
-        if (sentintel != null){
-            recoloringDelete(sentintel);
+        if (sentinel != null){
+            recoloringDelete(sentinel);
         } else {
             AbstractNode temp = searchD(this.root);
             if (temp != null) {
@@ -87,9 +87,9 @@ public class RedBlackTree extends Tree {
 
             if(root.getLeftChild() == null && root.getRightChild() == null){
                 if (root.getColor() == 'B'){
-                    sentintel = new NodeColor(null, null, 0, root.getParent());
-                    sentintel.setColor('B');
-                    root.setLeftChild(sentintel);
+                    sentinel = new NodeColor(null, null, 0, root.getParent());
+                    sentinel.setColor('B');
+                    root.setLeftChild(sentinel);
                 }
             }
 
@@ -122,8 +122,8 @@ public class RedBlackTree extends Tree {
                     root.getLeftChild().setParent(root);
             } else
             delete(root.getLeftChild(), root.getValue());
-            if (sentintel != null){
-                recoloringDelete(sentintel);
+            if (sentinel != null){
+                recoloringDelete(sentinel);
             } else {
                 AbstractNode temp = searchD(root);
                 if (temp != null) {
@@ -158,12 +158,12 @@ public class RedBlackTree extends Tree {
             sibling.setColor('B');
         }
 
-        if (root == sentintel){
-            if (parent.getLeftChild() == sentintel)
+        if (root == sentinel){
+            if (parent.getLeftChild() == sentinel)
                 parent.setLeftChild(null);
             else
                 parent.setRightChild(null);
-            sentintel = null;
+            sentinel = null;
         }
 
         if (sibling.getLeftChild() != null)
@@ -222,8 +222,10 @@ public class RedBlackTree extends Tree {
         if (root != null){
             if (root == this.root)
                 this.root.setColor('B');
+
             AbstractNode parent = root.getParent();
             AbstractNode grandparent = null;
+
             if (parent != null) {
                 if (parent.getParent() != null)
                     grandparent = root.getParent().getParent();
@@ -241,6 +243,7 @@ public class RedBlackTree extends Tree {
                 uncle = new NodeColor(null, null, 0, grandparent);
                 uncle.setColor('B');
             }
+
             if (parent.getColor() == 'R'){
                 if (uncle.getColor() == 'R'){
                     uncle.setColor('B');
@@ -249,19 +252,31 @@ public class RedBlackTree extends Tree {
                     recoloring(grandparent);
                 } else {
                     if (parent == grandparent.getLeftChild()){
-                        if (root == parent.getRightChild())
+                        if (root == parent.getRightChild()) {
                             rotateToLeft(parent);
-                        rotateToRight(grandparent);
-                        char temp = grandparent.getColor();
-                        grandparent.setColor(parent.getColor());
-                        parent.setColor(temp);
+                            rotateToRight(grandparent);
+                            char temp = root.getColor();
+                            root.setColor(grandparent.getColor());
+                            grandparent.setColor(temp);
+                        } else {
+                            rotateToRight(grandparent);
+                            char temp = grandparent.getColor();
+                            grandparent.setColor(parent.getColor());
+                            parent.setColor(temp);
+                        }
                     } else {
-                        if (root == parent.getLeftChild())
+                        if (root == parent.getLeftChild()) {
                             rotateToRight(parent);
-                        rotateToLeft(grandparent);
-                        char temp = grandparent.getColor();
-                        grandparent.setColor(parent.getColor());
-                        parent.setColor(temp);
+                            rotateToLeft(grandparent);
+                            char temp = root.getColor();
+                            root.setColor(grandparent.getColor());
+                            grandparent.setColor(temp);
+                        } else {
+                            rotateToLeft(grandparent);
+                            char temp = grandparent.getColor();
+                            grandparent.setColor(parent.getColor());
+                            parent.setColor(temp);
+                        }
                     }
                 }
 
